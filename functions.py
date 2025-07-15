@@ -56,7 +56,7 @@ def dem_download(filename, tiles, junk_folder):
 
     url = tiles.loc[filename, 'aws_url']
 
-    path = junk_path + '\\' + os.path.basename(url)
+    path = junk_path + '\\' + f'{filename}_DEM.tif'
     response = requests.get(url, stream=True)
     with open(path, 'wb') as f:
         for chunk in response.iter_content(chunk_size=8192):
