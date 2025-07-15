@@ -24,19 +24,19 @@ def treecanopy(filename, tiles, junk_folder, coords):
 
     for file in os.listdir(junk_path):
         if filename in file and '.las' == file[-4:]:
-            DSM_outpath = junk_path + '\\' + f"{filename}_DSM"
+            DSM_outpath = junk_path + '\\' + "DSM"
             arcpy.conversion.LasDatasetToRaster(in_las_dataset=junk_path + '\\' + file, out_raster=DSM_outpath,
                                                 interpolation_type="BINNING MAXIMUM LINEAR")
             DSM = arcpy.Raster(DSM_outpath)
 
             # creating DTM
-            DTM_outpath = junk_path + '\\' + f"{filename}_DTM"
+            DTM_outpath = junk_path + '\\' + "DTM"
             arcpy.conversion.LasDatasetToRaster(in_las_dataset=junk_path + '\\' + file, out_raster=DTM_outpath,
                                                 interpolation_type="BINNING MINIMUM LINEAR")
             DTM = arcpy.Raster(DTM_outpath)
 
             calc = DSM - DTM
-            treeCan_OP = junk_path + '\\' + f'{filename}_TC'
+            treeCan_OP = junk_path + '\\' + 'TC.tif'
             calc.save(treeCan_OP)
 
             arcpy.management.Delete(DSM)
